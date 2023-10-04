@@ -15,7 +15,7 @@ def load_resources():
 
 def handle_events():
     global running
-    global mx,my
+    global mx, my
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
@@ -23,7 +23,7 @@ def handle_events():
         elif event.type == SDL_MOUSEMOTION:
             mx, my = event.x, TUK_HEIGHT - 1 - event.y
         elif event.type == SDL_MOUSEBUTTONDOWN and event.button == SDL_BUTTON_LEFT:
-            points.append((event.x, TUK_HEIGHT-1 - event.y))
+            points.append((event.x, TUK_HEIGHT - 1 - event.y))
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             running = False
     pass
@@ -33,10 +33,10 @@ def reset_world():
     global running, cx, cy, frame
     global t
     global action
-    global mx,my
+    global mx, my
     global points
 
-    mx,my = 0,0
+    mx, my = 0, 0
     running = True
     cx, cy = TUK_WIDTH // 2, TUK_HEIGHT // 2
     frame = 0
@@ -54,7 +54,7 @@ def set_new_target_arrow():
 
     if points:
         sx, sy = cx, cy
-        hx, hy = points[0] # p2 끝점
+        hx, hy = points[0]  # p2 끝점
         # hx, hy = 50, 50
         t = 0.0
         action = 1 if sx < hx else 0
@@ -64,11 +64,13 @@ def set_new_target_arrow():
         action = 3 if action == 1 else 2
         frame = 0
         target_exists = False
+
+
 def render_world():
     clear_canvas()
     TUK_ground.draw(TUK_WIDTH // 2, TUK_HEIGHT // 2)
     for p in points:
-        arrow.draw(p[0],p[1])
+        arrow.draw(p[0], p[1])
     arrow.draw(mx, my)
     character.clip_draw(frame * 100, 100 * action, 100, 100, cx, cy)
     update_canvas()
@@ -93,6 +95,7 @@ def update_world():
 
     elif points:  # 목표지점이 없는 상화에서 새로운 목표 지점이 생기면
         set_new_target_arrow()
+
 
 open_canvas(TUK_WIDTH, TUK_HEIGHT)
 hide_cursor()
